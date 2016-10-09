@@ -606,7 +606,7 @@ rest    // [3, 4, 5]
 
 class: middle center
 
-# javascript api
+# node api
 
 ---
 
@@ -632,7 +632,7 @@ createServer((request, response) => {
 ---
 #Oppgave 4a
 
-Refakturer implementasjonen i `scripts/serve.js` til å bruke javascript api
+Refakturer implementasjonen i `scripts/serve.js` til å bruke node api
 
 <br>
 
@@ -718,7 +718,48 @@ noeAsync()
 ---
 class: middle center
 
-# less
+# node api
+
+---
+
+# File System api
+
+
+```
+const fs = require('fs');
+
+// Poor mans file copy
+fs.readFile('file.txt', (error, data) => {
+  if (error) throw error;
+
+  fs.writeFile('copyOfFile.txt', data, (error) => {
+    if (error) throw error;
+    console.log('It\'s saved!');
+  });
+});
+```
+
+.source[https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback]
+
+---
+# es6-promisify
+
+```
+const fs = require('fs');
+const promisify = require('es6-promisify');
+
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+
+// Poor mans file copy with promises
+readFile('file.txt')
+  .then(fileContent => writeFile('copyOfFile.txt', fileContent))
+  .catch(error => throw error);
+```
+
+
+.source[https://www.npmjs.com/package/es6-promisify]
+
 
 ---
 
@@ -736,16 +777,11 @@ class: middle center
   <iframe src="http://cssnano.co/usage/#javascript" style="background-color: #fff"/>
 </div>
 
-
----
-# es6-promisify
-
-.source[https://www.npmjs.com/package/es6-promisify]
 ---
 
 #Oppgave 4b
 
-Refakturer implementasjonen i `scripts/build-css.js` til å bruke javascript api.
+Refakturer implementasjonen i `scripts/build-css.js` til å bruke node api.
 
 ##Tips
 * les fil fra disk
@@ -756,6 +792,7 @@ Refakturer implementasjonen i `scripts/build-css.js` til å bruke javascript api
 
 
 ##Resurser
+* http://kentandersen.github.io/vanillajs-workshop/#131
 * http://lesscss.org/#using-less-usage-in-code
 * http://cssnano.co/usage/#javascript
 * https://www.npmjs.com/package/es6-promisify
@@ -763,9 +800,104 @@ Refakturer implementasjonen i `scripts/build-css.js` til å bruke javascript api
 
 ---
 
+class: middle center
+
+# node streams
+
+---
+# node streams
 
 
+<img src="resources/node-readfile.jpg" style="width:100%" />
 
+.source[https://www.zivtech.com/blog/nodejs-stream-dreams]
+
+---
+# node streams
+
+<img src="resources/node-streams.jpg" style="width:100%" />
+
+.source[https://www.zivtech.com/blog/nodejs-stream-dreams]
+
+---
+# node streams
+
+```
+const { createReadStream, createWriteStream } = require('fs');
+
+// Rich mans file copy
+createReadStream('file.txt').pipe(createWriteStream('copyOfFile.txt'));
+```
+--
+
+```
+createReadStream('file.txt')
+  .pipe(doThis());
+  .pipe(that());
+  .pipe(andTheOther());
+  .pipe(createWriteStream('copyOfFile.txt'));
+```
+
+---
+
+#Oppgave 4c
+
+Refakturer implementasjonen i `scripts/build-html.js` til å bruke stream api.
+
+
+---
+
+class: center middle
+
+# Browserify node api
+
+---
+
+# Browserify node api
+
+
+```
+const { createWriteStream } = require('fs');
+const browserify = require('browserify');
+
+browserify('path/to/main.js', {
+  transform: [ 'babelify' ]
+});
+  .bundle()
+  .pipe(createWriteStream('main-bundled.js'));
+```
+
+---
+
+#Oppgave 4d
+
+Refakturer implementasjonen i `scripts/build-js.js` til å bruke node api.
+Bruk uglify transform stream helperen som ligger i `scripts/helpers/uglify.js`
+
+##Tips
+* sett opp bundler
+* minifiser javascript
+* skriv stream til disk
+
+
+##Resurser
+* https://github.com/substack/node-browserify#api-example
+
+
+---
+#Oppgave 5
+
+Velg en
+
+* Sett opp byggesystemet i gulp<br>
+  http://gulpjs.org/getting-started.html
+  https://wehavefaces.net/gulp-browserify-the-gulp-y-way-bb359b3f9623#b27a
+
+* Sett opp byggesystemet i webpack<br>
+  https://webpack.github.io/docs/usage.html
+
+* Lag din egen task runner<br>
+  eksempel api: `node tasks.js html css js`
 
 ---
 
