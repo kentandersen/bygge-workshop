@@ -1,3 +1,5 @@
+// https://gist.github.com/joyrexus/10026630#transform
+
 const { Transform } = require('stream');
 const UglifyJS = require("uglify-js");
 
