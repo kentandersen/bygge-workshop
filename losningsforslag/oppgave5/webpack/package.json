@@ -1,0 +1,23 @@
+{
+  "name": "bygge-workshop",
+  "version": "1.0.0",
+  "description": "Workshop i frontendbygg",
+  "main": "index.js",
+  "author": "Kent Andersen <kentareandersen@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack",
+    "build-html": "cp src/index.html dist/index.html",
+    "serve": "./node_modules/.bin/static dist"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "css-loader": "^0.25.0",
+    "less-loader": "^2.2.3",
+    "node-static": "^0.7.9",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2"
+  }
+}
