@@ -13,6 +13,7 @@
     "cssnano-cli": "^1.0.5",
     "es6-promisify": "^5.0.0",
     "less": "^2.7.1",
-    "node-static": "^0.7.9"
+    "node-static": "^0.7.9",
+    "uglifyjs": "^2.4.10"
   }
 }
