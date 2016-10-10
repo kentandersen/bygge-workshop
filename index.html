@@ -23,7 +23,6 @@ class: agenda
 * Show and tell med Fredrik og Kim
 * NPM scripts
 * node_modules/.bin
-* Prototypes
 * Promises
 * Node streams
 * gulp | webpack | diy
@@ -712,9 +711,10 @@ noeAsync()
 
 ```
 noeAsync()
-  .then(() => 12)             // return 12
-  .then(input => input + 1)   // return 13
-  .then(input => input + 1)   // return 14
+  .then(() => 12)                     // return 12
+  .then(input => input + 1)           // return 13
+  .then(input => addOneAsync(input))  // return 14
+  .then(input => input + 1)           // return 15
   .catch(error => console.log(error));
 ```
 
@@ -865,7 +865,7 @@ const browserify = require('browserify');
 
 browserify('path/to/main.js', {
   transform: [ 'babelify' ]
-});
+})
   .bundle()
   .pipe(createWriteStream('main-bundled.js'));
 ```
@@ -875,7 +875,7 @@ browserify('path/to/main.js', {
 #Oppgave 4d
 
 Refakturer implementasjonen i `scripts/build-js.js` til å bruke node api.
-Bruk uglify transform stream helperen som ligger i `scripts/helpers/uglify.js`
+Bruk uglify transform stream helperen som ligger i `losningsforslag/oppgave4/scripts/helpers/uglify.js`
 
 ##Tips
 * sett opp bundler
@@ -893,14 +893,15 @@ Bruk uglify transform stream helperen som ligger i `scripts/helpers/uglify.js`
 Velg en
 
 * Sett opp byggesystemet i gulp<br>
-  http://gulpjs.org/getting-started.html
-  https://wehavefaces.net/gulp-browserify-the-gulp-y-way-bb359b3f9623#bb6f
+  * http://gulpjs.org/getting-started.html
+  * https://wehavefaces.net/gulp-browserify-the-gulp-y-way-bb359b3f9623#bb6f
 
 * Sett opp byggesystemet i webpack<br>
-  https://webpack.github.io/docs/usage.html
+  * https://webpack.github.io/docs/usage.html
 
-* Lag din egen task runner<br>
-  eksempel api: `node tasks.js html css js`
+* Lag ditt eget byggesystemet<br>
+  eksempel api: `node tasks.js [tasknavn]`
+  * http://stackoverflow.com/questions/4351521/how-do-i-pass-command-line-arguments-to-node-js
 
 ---
 
